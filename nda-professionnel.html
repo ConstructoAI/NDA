@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accord de Non-Divulgation (NDA) - Sylvain Leduc</title>
+    <style>
+        /* Variables CSS */
+        :root {
+            --navy-dark: #0a1628;
+            --navy-primary: #1e3a5f;
+            --navy-medium: #2c5282;
+            --navy-light: #3b6ea5;
+            --navy-accent: #4a90e2;
+            --navy-bg: #f0f4f8;
+            --white: #ffffff;
+            --gray-light: #f7f9fc;
+            --gray-medium: #e2e8f0;
+            --gray-dark: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.15);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.2);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--navy-dark);
+            background: linear-gradient(135deg, #e6f2ff 0%, #f0f4f8 100%);
+            min-height: 100vh;
+            position: relative;
+            font-size: 13px;
+        }
+        
+        /* Barre de contrôle fixe */
+        .control-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy-primary) 100%);
+            color: var(--white);
+            padding: 15px 20px;
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.5s ease;
+        }
+        
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .control-bar h3 {
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .control-btn {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.15);
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .control-btn:active {
+            transform: translateY(0);
+        }
+        
+        .control-btn.primary {
+            background: var(--navy-accent);
+            border-color: var(--navy-accent);
+        }
+        
+        .control-btn.primary:hover {
+            background: #5ba0f2;
+        }
+        
+        .control-btn.success {
+            background: var(--success);
+            border-color: var(--success);
+        }
+        
+        .control-btn.danger {
+            background: var(--danger);
+            border-color: var(--danger);
+        }
+        
+        .control-btn.info {
+            background: var(--info);
+            border-color: var(--info);
+        }
+        
+        /* Indicateur de sauvegarde */
+        .save-indicator {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 12px 24px;
+            background: var(--success);
+            color: var(--white);
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+            z-index: 1001;
+            font-weight: 600;
+            font-size: 14px;
+            animation: slideUp 0.3s ease;
+        }
+        
+        .save-indicator.show {
+            display: block;
+        }
+        
+        .save-indicator.error {
+            background: var(--danger);
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Container principal - Format 8.5" x 11" */
+        .container {
+            width: 8.5in;
+            max-width: 100%;
+            min-height: 11in;
+            margin: 80px auto 40px;
+            background: var(--white);
+            box-shadow: var(--shadow-lg);
+            border-radius: 12px;
+            overflow: hidden;
+            animation: fadeIn 0.6s ease;
+            position: relative;
+        }
+        
+        .container::after {
+            content: "Format Lettre US (8.5\" × 11\")";
+            position: absolute;
+            top: -25px;
+            right: 10px;
+            font-size: 10px;
+            color: var(--gray-dark);
+            background: var(--white);
+            padding: 2px 8px;
+            border-radius: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Header du document */
+        .document-header {
+            background: linear-gradient(135deg, var(--navy-primary) 0%, var(--navy-medium) 100%);
+            color: var(--white);
+            padding: 35px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .document-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 30s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .document-header h1 {
+            font-size: 2em;
+            margin-bottom: 8px;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+        
+        .document-header h2 {
+            font-size: 1em;
+            font-weight: 300;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-style: italic;
+        }
+        
+        .security-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .security-badge::before {
+            content: "🔒";
+            font-size: 14px;
+        }
+        
+        /* Contenu */
+        .content {
+            padding: 0.5in;
+        }
+        
+        /* Box d'instruction */
+        .instruction-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 4px solid var(--navy-accent);
+            border-radius: 8px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-sm);
+            font-size: 0.9em;
+        }
+        
+        .instruction-box svg {
+            flex-shrink: 0;
+            color: var(--navy-accent);
+            width: 24px;
+            height: 24px;
+        }
+        
+        .instruction-box p {
+            margin: 0;
+            color: var(--navy-dark);
+            font-weight: 500;
+        }
+        
+        /* Type de NDA */
+        .nda-type-section {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .nda-type-section h3 {
+            color: var(--navy-primary);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .nda-types {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .nda-type {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            border: 2px solid var(--gray-medium);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .nda-type:hover {
+            border-color: var(--navy-accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .nda-type.selected {
+            border-color: var(--navy-accent);
+            background: linear-gradient(135deg, #e6f3ff 0%, #f0f8ff 100%);
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+        }
+        
+        .nda-type.selected::after {
+            content: '✓';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--navy-accent);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .nda-type h4 {
+            color: var(--navy-primary);
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+        
+        .nda-type p {
+            font-size: 0.85em;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Parties section */
+        .parties-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: var(--shadow-sm);
+            page-break-inside: avoid;
+        }
+        
+        .party {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .party h3 {
+            color: var(--navy-primary);
+            margin-bottom: 10px;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .party p {
+            margin: 4px 0;
+            font-size: 0.9em;
+            color: var(--navy-dark);
+            line-height: 1.5;
+        }
+        
+        /* Articles */
+        .article {
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--white);
+            border-left: 4px solid var(--navy-medium);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            page-break-inside: avoid;
+        }
+        
+        .article:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateX(5px);
+        }
+        
+        .article h2 {
+            color: var(--navy-primary);
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            font-weight: 600;
+            page-break-after: avoid;
+        }
+        
+        .article h3 {
+            color: var(--navy-medium);
+            margin: 15px 0 10px 0;
+            font-size: 1.1em;
+            page-break-after: avoid;
+        }
+        
+        .article ul {
+            margin-left: 25px;
+            margin-bottom: 12px;
+        }
+        
+        .article li {
+            margin: 6px 0;
+            line-height: 1.6;
+            color: var(--navy-dark);
+            font-size: 0.95em;
+        }
+        
+        .article p {
+            margin: 10px 0;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        /* Box d'avertissement */
+        .warning-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffe8a1 100%);
+            border: 1px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .warning-box::before {
+            content: "⚠️";
+            font-size: 20px;
+            margin-right: 10px;
+            float: left;
+        }
+        
+        .warning-box p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #856404;
+            font-weight: 500;
+        }
+        
+        /* Box d'information */
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 1px solid #2196f3;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .info-box::before {
+            content: "ℹ️";
+            font-size: 20px;
+            margin-right: 10px;
+            float: left;
+        }
+        
+        .info-box p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #0c5099;
+        }
+        
+        /* Durée section */
+        .duration-section {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .duration-options {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .duration-option {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px;
+            border: 2px solid var(--gray-medium);
+            border-radius: 8px;
+            background: var(--white);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .duration-option:hover {
+            border-color: var(--navy-accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .duration-option.selected {
+            border-color: var(--navy-accent);
+            background: linear-gradient(135deg, #e6f3ff 0%, #f0f8ff 100%);
+        }
+        
+        .duration-option h4 {
+            color: var(--navy-primary);
+            margin-bottom: 5px;
+            font-size: 0.95em;
+        }
+        
+        .duration-option p {
+            font-size: 0.8em;
+            color: #666;
+            margin: 0;
+        }
+        
+        /* Champs éditables */
+        [contenteditable="true"] {
+            background: #fff8dc;
+            padding: 2px 8px;
+            border-bottom: 2px solid var(--navy-accent);
+            min-width: 100px;
+            display: inline-block;
+            transition: var(--transition);
+            border-radius: 4px 4px 0 0;
+        }
+        
+        [contenteditable="true"]:hover {
+            background: #ffeb3b;
+            cursor: text;
+        }
+        
+        [contenteditable="true"]:focus {
+            outline: none;
+            background: var(--white);
+            box-shadow: 0 2px 8px rgba(30, 58, 95, 0.2);
+        }
+        
+        /* Section signature */
+        .signature-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+            page-break-inside: avoid;
+        }
+        
+        .signature-section h3 {
+            color: var(--navy-primary);
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .signatures {
+            display: flex;
+            justify-content: space-around;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .signature-block {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+        
+        .signature-block h4 {
+            color: var(--navy-medium);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.9em;
+        }
+        
+        .signature-line {
+            border-bottom: 2px solid var(--navy-dark);
+            margin: 25px 0 10px 0;
+            min-width: 200px;
+        }
+        
+        .witness-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed var(--gray-dark);
+        }
+        
+        /* Footer */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 10px;
+            color: #666;
+            border-top: 2px solid var(--navy-primary);
+            padding-top: 20px;
+        }
+        
+        .footer .confidential-mark {
+            display: inline-block;
+            background: var(--danger);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Highlight */
+        .highlight {
+            background: linear-gradient(120deg, #ffed4e 0%, #ffed4e 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 85%;
+            padding: 2px 5px;
+        }
+        
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 22, 40, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .loading-overlay.show {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Mode impression */
+        @media print {
+            @page {
+                size: letter;
+                margin: 0.5in;
+            }
+            
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+                font-size: 11pt;
+            }
+            
+            .control-bar {
+                display: none !important;
+            }
+            
+            .loading-overlay {
+                display: none !important;
+            }
+            
+            .save-indicator {
+                display: none !important;
+            }
+            
+            .container {
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+                max-width: 100%;
+                width: 100%;
+                padding: 0;
+            }
+            
+            .container::after {
+                display: none;
+            }
+            
+            .content {
+                padding: 0;
+            }
+            
+            .instruction-box {
+                display: none !important;
+            }
+            
+            [contenteditable="true"] {
+                border-bottom: 1px solid #333 !important;
+                background: transparent !important;
+                padding: 2px 4px !important;
+            }
+            
+            .nda-type.selected,
+            .duration-option.selected {
+                background: #e6f3ff !important;
+                border: 2px solid var(--navy-accent) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .article {
+                page-break-inside: avoid;
+            }
+            
+            .signature-section {
+                page-break-inside: avoid;
+            }
+            
+            .document-header {
+                background: var(--navy-primary) !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 850px) {
+            .container {
+                width: 100%;
+                margin: 100px 10px 40px;
+                border-radius: 8px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .control-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .control-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .document-header h1 {
+                font-size: 1.6em;
+            }
+            
+            .parties-section {
+                flex-direction: column;
+            }
+            
+            .signatures {
+                flex-direction: column;
+                gap: 30px;
+            }
+            
+            .nda-types,
+            .duration-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Barre de contrôle -->
+    <div class="control-bar">
+        <h3>🔐 ACCORD DE NON-DIVULGATION (NDA) - FORMAT LETTRE</h3>
+        <div class="control-buttons">
+            <button class="control-btn primary" onclick="window.print()" title="Imprimer le NDA">
+                🖨️ Imprimer
+            </button>
+            <button class="control-btn success" onclick="saveNDA()" title="Sauvegarder les modifications">
+                💾 Sauvegarder
+            </button>
+            <button class="control-btn info" onclick="exportPDF()" title="Exporter en PDF">
+                📄 Export PDF
+            </button>
+            <button class="control-btn" onclick="exportData()" title="Exporter les données">
+                📥 Exporter
+            </button>
+            <button class="control-btn" onclick="loadExternalData()" title="Charger des données">
+                📤 Charger
+            </button>
+            <button class="control-btn danger" onclick="resetForm()" title="Réinitialiser le formulaire">
+                🔄 Réinitialiser
+            </button>
+        </div>
+    </div>
+
+    <!-- Indicateur de sauvegarde -->
+    <div class="save-indicator" id="saveIndicator">
+        <span id="saveMessage">✔ Sauvegarde effectuée</span>
+    </div>
+
+    <div class="container">
+        <div class="document-header">
+            <div class="security-badge">CONFIDENTIEL</div>
+            <h1>Accord de Non-Divulgation</h1>
+            <h2>Non-Disclosure Agreement (NDA)</h2>
+        </div>
+        
+        <div class="content">
+            <div class="instruction-box">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p>📝 Les champs en jaune sont modifiables - Cliquez pour personnaliser • Document juridiquement contraignant</p>
+            </div>
+            
+            <!-- Sélection du type de NDA -->
+            <div class="nda-type-section">
+                <h3>Type d'Accord de Confidentialité</h3>
+                <div class="nda-types">
+                    <div class="nda-type" onclick="selectNDAType('unilateral')">
+                        <h4>📋 Unilatéral</h4>
+                        <p>Une partie divulgue, l'autre reçoit</p>
+                    </div>
+                    <div class="nda-type" onclick="selectNDAType('mutual')">
+                        <h4>🔄 Mutuel</h4>
+                        <p>Les deux parties échangent des informations</p>
+                    </div>
+                    <div class="nda-type" onclick="selectNDAType('multilateral')">
+                        <h4>👥 Multilatéral</h4>
+                        <p>Plus de deux parties impliquées</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="parties-section">
+                <div class="party">
+                    <h3>La Partie Divulgatrice:</h3>
+                    <p><strong contenteditable="true" data-field="discloser-name">Sylvain Leduc</strong></p>
+                    <p contenteditable="true" data-field="discloser-address">1760 rue Jacques-Cartier Sud</p>
+                    <p contenteditable="true" data-field="discloser-city">Farnham, QC, J2N 1Y8</p>
+                    <p>Téléphone: <span contenteditable="true" data-field="discloser-phone">(514) 820-1972</span></p>
+                    <p>Courriel: <span contenteditable="true" data-field="discloser-email">sylvainleduc2000@gmail.com</span></p>
+                    <p><em>(ci-après « le Divulgateur »)</em></p>
+                </div>
+                
+                <div class="party">
+                    <h3>La Partie Réceptrice:</h3>
+                    <p><strong contenteditable="true" data-field="recipient-name">[Nom de l'entreprise/personne]</strong></p>
+                    <p contenteditable="true" data-field="recipient-address">[Adresse]</p>
+                    <p contenteditable="true" data-field="recipient-city">[Ville, Province, Code postal]</p>
+                    <p>Téléphone: <span contenteditable="true" data-field="recipient-phone">[___________]</span></p>
+                    <p>Courriel: <span contenteditable="true" data-field="recipient-email">[___________]</span></p>
+                    <p><em>(ci-après « le Récepteur »)</em></p>
+                </div>
+            </div>
+            
+            <div class="article">
+                <h2>PRÉAMBULE</h2>
+                <p>ATTENDU QUE le Divulgateur possède certaines informations confidentielles et propriétaires concernant <span contenteditable="true" data-field="project-description" class="highlight">[description du projet, technologie, ou affaire]</span>;</p>
+                <p>ATTENDU QUE le Divulgateur accepte de divulguer ces informations confidentielles au Récepteur dans le but de <span contenteditable="true" data-field="purpose" class="highlight">[évaluation, collaboration, négociation, etc.]</span>;</p>
+                <p>ATTENDU QUE les parties souhaitent protéger la confidentialité de ces informations;</p>
+                <p>EN CONSÉQUENCE, les parties conviennent de ce qui suit:</p>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 1 - DÉFINITION DES INFORMATIONS CONFIDENTIELLES</h2>
+                <p>1.1 Aux fins du présent accord, « Informations Confidentielles » désigne toute information, donnée ou connaissance, sous quelque forme que ce soit, divulguée par le Divulgateur au Récepteur, incluant mais sans s'y limiter:</p>
+                <ul>
+                    <li>Informations techniques, scientifiques et technologiques</li>
+                    <li>Codes sources, algorithmes, et architectures logicielles</li>
+                    <li>Plans d'affaires, stratégies commerciales et marketing</li>
+                    <li>Informations financières et comptables</li>
+                    <li>Listes de clients, fournisseurs et partenaires</li>
+                    <li>Données de recherche et développement</li>
+                    <li>Processus, méthodes et savoir-faire</li>
+                    <li>Prototypes, échantillons et spécifications</li>
+                    <li>Toute information marquée comme « Confidentiel » ou équivalent</li>
+                    <li>Toute information qui, par sa nature, devrait raisonnablement être considérée comme confidentielle</li>
+                </ul>
+                
+                <div class="info-box">
+                    <p>Les informations divulguées oralement seront considérées comme confidentielles si elles sont confirmées par écrit dans les 30 jours suivant la divulgation.</p>
+                </div>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 2 - EXCLUSIONS</h2>
+                <p>Ne sont pas considérées comme Informations Confidentielles les informations qui:</p>
+                <ul>
+                    <li>Étaient déjà connues du Récepteur avant la divulgation, sans obligation de confidentialité</li>
+                    <li>Sont ou deviennent publiquement disponibles sans violation du présent accord</li>
+                    <li>Sont développées indépendamment par le Récepteur sans utilisation des Informations Confidentielles</li>
+                    <li>Sont légitimement reçues d'un tiers sans restriction de confidentialité</li>
+                    <li>Doivent être divulguées en vertu d'une ordonnance judiciaire ou d'une exigence légale, après notification au Divulgateur</li>
+                </ul>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 3 - OBLIGATIONS DU RÉCEPTEUR</h2>
+                <p>Le Récepteur s'engage à:</p>
+                
+                <h3>3.1 Protection et utilisation</h3>
+                <ul>
+                    <li>Maintenir la stricte confidentialité des Informations Confidentielles</li>
+                    <li>Ne pas divulguer les Informations Confidentielles à des tiers sans autorisation écrite préalable</li>
+                    <li>Utiliser les Informations Confidentielles uniquement aux fins spécifiées dans le préambule</li>
+                    <li>Protéger les Informations Confidentielles avec le même degré de soin utilisé pour ses propres informations confidentielles, mais en aucun cas moins qu'un degré de soin raisonnable</li>
+                </ul>
+                
+                <h3>3.2 Accès limité</h3>
+                <ul>
+                    <li>Limiter l'accès aux Informations Confidentielles aux employés, consultants ou agents ayant un besoin légitime de les connaître</li>
+                    <li>S'assurer que ces personnes sont liées par des obligations de confidentialité au moins aussi strictes que celles du présent accord</li>
+                    <li>Informer immédiatement le Divulgateur de toute divulgation non autorisée</li>
+                </ul>
+                
+                <h3>3.3 Interdictions</h3>
+                <ul>
+                    <li>Ne pas copier, reproduire ou dupliquer les Informations Confidentielles sauf si nécessaire aux fins autorisées</li>
+                    <li>Ne pas faire de rétro-ingénierie, décompiler ou désassembler les Informations Confidentielles</li>
+                    <li>Ne pas utiliser les Informations Confidentielles pour développer des produits ou services concurrents</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <p>Toute violation de ces obligations peut entraîner des poursuites judiciaires et des dommages-intérêts substantiels.</p>
+                </div>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 4 - PROPRIÉTÉ INTELLECTUELLE</h2>
+                <p>4.1 Le présent accord ne confère au Récepteur aucun droit de propriété intellectuelle sur les Informations Confidentielles.</p>
+                <p>4.2 Toutes les Informations Confidentielles demeurent la propriété exclusive du Divulgateur.</p>
+                <p>4.3 Aucune licence, expresse ou implicite, n'est accordée par le présent accord, sauf le droit limité d'utiliser les Informations Confidentielles aux fins spécifiées.</p>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 5 - DURÉE ET RÉSILIATION</h2>
+                
+                <div class="duration-section">
+                    <p><strong>Durée de l'accord:</strong></p>
+                    <div class="duration-options">
+                        <div class="duration-option" onclick="selectDuration('1')">
+                            <h4>1 an</h4>
+                            <p>Standard</p>
+                        </div>
+                        <div class="duration-option" onclick="selectDuration('2')">
+                            <h4>2 ans</h4>
+                            <p>Recommandé</p>
+                        </div>
+                        <div class="duration-option" onclick="selectDuration('3')">
+                            <h4>3 ans</h4>
+                            <p>Étendu</p>
+                        </div>
+                        <div class="duration-option" onclick="selectDuration('5')">
+                            <h4>5 ans</h4>
+                            <p>Long terme</p>
+                        </div>
+                        <div class="duration-option" onclick="selectDuration('perpetual')">
+                            <h4>Perpétuel</h4>
+                            <p>Sans limite</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <p>5.1 Le présent accord entre en vigueur à la date de signature et demeure en vigueur pour une période de <span contenteditable="true" data-field="duration" class="highlight">[durée]</span> ans.</p>
+                <p>5.2 Les obligations de confidentialité survivront à la résiliation de cet accord pour une période additionnelle de <span contenteditable="true" data-field="survival-period" class="highlight">[3]</span> ans.</p>
+                <p>5.3 Chaque partie peut résilier cet accord moyennant un préavis écrit de trente (30) jours.</p>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 6 - RETOUR DES INFORMATIONS</h2>
+                <p>6.1 Sur demande du Divulgateur ou à la résiliation de cet accord, le Récepteur devra:</p>
+                <ul>
+                    <li>Retourner immédiatement toutes les Informations Confidentielles et leurs copies</li>
+                    <li>Détruire toutes les notes, analyses ou documents dérivés des Informations Confidentielles</li>
+                    <li>Certifier par écrit la destruction complète de toutes les copies électroniques</li>
+                    <li>Cesser immédiatement toute utilisation des Informations Confidentielles</li>
+                </ul>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 7 - RECOURS ET INDEMNISATION</h2>
+                <p>7.1 Le Récepteur reconnaît que toute violation du présent accord pourrait causer au Divulgateur un préjudice irréparable pour lequel des dommages-intérêts seraient inadéquats.</p>
+                <p>7.2 En cas de violation ou de menace de violation, le Divulgateur aura droit à une injonction et à tout autre recours équitable, en plus de tous autres recours disponibles.</p>
+                <p>7.3 Le Récepteur indemnisera le Divulgateur pour tous dommages, pertes, coûts et frais (incluant les honoraires d'avocats) résultant d'une violation du présent accord.</p>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 8 - ABSENCE DE GARANTIE</h2>
+                <p>8.1 Les Informations Confidentielles sont fournies « telles quelles » sans aucune garantie, expresse ou implicite, quant à leur exactitude, exhaustivité ou pertinence.</p>
+                <p>8.2 Le Divulgateur ne sera pas responsable des décisions prises par le Récepteur basées sur les Informations Confidentielles.</p>
+            </div>
+            
+            <div class="article">
+                <h2>ARTICLE 9 - DISPOSITIONS GÉNÉRALES</h2>
+                
+                <h3>9.1 Modification</h3>
+                <p>Toute modification au présent accord doit être faite par écrit et signée par les deux parties.</p>
+                
+                <h3>9.2 Intégralité de l'accord</h3>
+                <p>Le présent accord constitue l'entente complète entre les parties concernant la confidentialité et remplace toute entente antérieure.</p>
+                
+                <h3>9.3 Divisibilité</h3>
+                <p>Si une disposition de cet accord est jugée invalide, les autres dispositions demeureront en vigueur.</p>
+                
+                <h3>9.4 Cession</h3>
+                <p>Le présent accord ne peut être cédé sans le consentement écrit préalable de l'autre partie.</p>
+                
+                <h3>9.5 Loi applicable</h3>
+                <p>Le présent accord est régi par les lois de la province de <span contenteditable="true" data-field="province" class="highlight">Québec</span> et les lois fédérales canadiennes applicables.</p>
+                
+                <h3>9.6 Juridiction</h3>
+                <p>Tout différend sera soumis à la compétence exclusive des tribunaux de la province de <span contenteditable="true" data-field="jurisdiction" class="highlight">Québec</span>.</p>
+            </div>
+            
+            <div class="signature-section">
+                <h3>EN FOI DE QUOI, les parties ont signé:</h3>
+                
+                <div class="signatures">
+                    <div class="signature-block">
+                        <h4>Le Divulgateur:</h4>
+                        <div class="signature-line"></div>
+                        <p>Nom: <span contenteditable="true" data-field="discloser-signatory">Sylvain Leduc</span></p>
+                        <p>Titre: <span contenteditable="true" data-field="discloser-title">Consultant</span></p>
+                        <p>Date: <span contenteditable="true" data-field="discloser-date">_____________</span></p>
+                    </div>
+                    
+                    <div class="signature-block">
+                        <h4>Le Récepteur:</h4>
+                        <div class="signature-line"></div>
+                        <p>Nom: <span contenteditable="true" data-field="recipient-signatory">_____________</span></p>
+                        <p>Titre: <span contenteditable="true" data-field="recipient-title">_____________</span></p>
+                        <p>Date: <span contenteditable="true" data-field="recipient-date">_____________</span></p>
+                    </div>
+                </div>
+                
+                <div class="witness-section">
+                    <h3>Témoins (optionnel):</h3>
+                    <div class="signatures">
+                        <div class="signature-block">
+                            <h4>Témoin 1:</h4>
+                            <div class="signature-line"></div>
+                            <p>Nom: <span contenteditable="true" data-field="witness1-name">_____________</span></p>
+                            <p>Date: <span contenteditable="true" data-field="witness1-date">_____________</span></p>
+                        </div>
+                        
+                        <div class="signature-block">
+                            <h4>Témoin 2:</h4>
+                            <div class="signature-line"></div>
+                            <p>Nom: <span contenteditable="true" data-field="witness2-name">_____________</span></p>
+                            <p>Date: <span contenteditable="true" data-field="witness2-date">_____________</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <div class="confidential-mark">Document Confidentiel</div>
+                <p><strong>© 2025 - Accord de Non-Divulgation</strong></p>
+                <p>Ce document est strictement confidentiel et juridiquement contraignant</p>
+                <p>Toute reproduction non autorisée est interdite</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // État de l'application
+        let ndaData = {};
+        let isDirty = false;
+        let selectedNDAType = 'unilateral';
+        let selectedDuration = '2';
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            initializeEventListeners();
+            selectNDAType('unilateral');
+            selectDuration('2');
+            console.log('✅ NDA initialisé avec succès');
+        });
+
+        // Ajouter les écouteurs d'événements
+        function initializeEventListeners() {
+            // Surveiller les modifications
+            document.querySelectorAll('[contenteditable="true"]').forEach(field => {
+                field.addEventListener('input', function() {
+                    isDirty = true;
+                    autoSave();
+                });
+                
+                // Ajouter l'aide contextuelle
+                field.addEventListener('focus', function() {
+                    if (this.innerText.startsWith('[') && this.innerText.endsWith(']')) {
+                        this.innerText = '';
+                    }
+                });
+                
+                field.addEventListener('blur', function() {
+                    if (this.innerText.trim() === '') {
+                        const fieldName = this.getAttribute('data-field');
+                        this.innerText = '[' + fieldName + ']';
+                    }
+                });
+            });
+
+            // Prévenir la perte de données
+            window.addEventListener('beforeunload', function(e) {
+                if (isDirty) {
+                    e.preventDefault();
+                    e.returnValue = 'Des modifications non sauvegardées seront perdues.';
+                }
+            });
+        }
+
+        // Sélectionner le type de NDA
+        function selectNDAType(type) {
+            selectedNDAType = type;
+            
+            // Mettre à jour l'interface
+            document.querySelectorAll('.nda-type').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            const selectedElement = Array.from(document.querySelectorAll('.nda-type')).find(el => {
+                const h4Text = el.querySelector('h4').innerText.toLowerCase();
+                return (type === 'unilateral' && h4Text.includes('unilatéral')) ||
+                       (type === 'mutual' && h4Text.includes('mutuel')) ||
+                       (type === 'multilateral' && h4Text.includes('multilatéral'));
+            });
+            
+            if (selectedElement) {
+                selectedElement.classList.add('selected');
+            }
+            
+            // Adapter le texte selon le type
+            const recipientParty = document.querySelector('.party:last-child h3');
+            if (recipientParty) {
+                if (type === 'mutual') {
+                    recipientParty.innerText = 'La Seconde Partie:';
+                } else if (type === 'multilateral') {
+                    recipientParty.innerText = 'Les Autres Parties:';
+                } else {
+                    recipientParty.innerText = 'La Partie Réceptrice:';
+                }
+            }
+            
+            isDirty = true;
+            autoSave();
+            
+            showNotification(`✔ Type de NDA: ${type === 'unilateral' ? 'Unilatéral' : type === 'mutual' ? 'Mutuel' : 'Multilatéral'}`);
+        }
+
+        // Sélectionner la durée
+        function selectDuration(duration) {
+            selectedDuration = duration;
+            
+            // Mettre à jour l'interface
+            document.querySelectorAll('.duration-option').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            const selectedElement = Array.from(document.querySelectorAll('.duration-option')).find(el => {
+                const h4Text = el.querySelector('h4').innerText;
+                return (duration === '1' && h4Text === '1 an') ||
+                       (duration === '2' && h4Text === '2 ans') ||
+                       (duration === '3' && h4Text === '3 ans') ||
+                       (duration === '5' && h4Text === '5 ans') ||
+                       (duration === 'perpetual' && h4Text === 'Perpétuel');
+            });
+            
+            if (selectedElement) {
+                selectedElement.classList.add('selected');
+            }
+            
+            // Mettre à jour le champ de durée
+            const durationField = document.querySelector('[data-field="duration"]');
+            if (durationField) {
+                if (duration === 'perpetual') {
+                    durationField.innerText = 'perpétuité';
+                } else {
+                    durationField.innerText = duration;
+                }
+            }
+            
+            // Ajuster la période de survie
+            const survivalField = document.querySelector('[data-field="survival-period"]');
+            if (survivalField) {
+                if (duration === 'perpetual') {
+                    survivalField.innerText = 'perpétuité';
+                } else {
+                    survivalField.innerText = Math.min(parseInt(duration) + 1, 5).toString();
+                }
+            }
+            
+            isDirty = true;
+            autoSave();
+        }
+
+        // Sauvegarde automatique
+        let autoSaveTimer;
+        function autoSave() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                saveNDA(true);
+            }, 2000);
+        }
+
+        // Sauvegarder le NDA
+        function saveNDA(isAuto = false) {
+            try {
+                ndaData = {};
+                document.querySelectorAll('[contenteditable="true"]').forEach(field => {
+                    const fieldName = field.getAttribute('data-field');
+                    if (fieldName) {
+                        ndaData[fieldName] = field.innerText;
+                    }
+                });
+                
+                // Sauvegarder les sélections
+                ndaData.selectedNDAType = selectedNDAType;
+                ndaData.selectedDuration = selectedDuration;
+
+                localStorage.setItem('ndaData', JSON.stringify(ndaData));
+                isDirty = false;
+                
+                showNotification(isAuto ? '✔ Sauvegarde automatique' : '✔ NDA sauvegardé avec succès');
+            } catch (error) {
+                console.error('Erreur de sauvegarde:', error);
+                showNotification('⚠️ Erreur lors de la sauvegarde', true);
+            }
+        }
+
+        // Charger les données
+        function loadData() {
+            try {
+                const savedData = localStorage.getItem('ndaData');
+                if (savedData) {
+                    ndaData = JSON.parse(savedData);
+                    
+                    // Restaurer les champs
+                    Object.keys(ndaData).forEach(fieldName => {
+                        if (fieldName !== 'selectedNDAType' && fieldName !== 'selectedDuration') {
+                            const field = document.querySelector(`[data-field="${fieldName}"]`);
+                            if (field) {
+                                field.innerText = ndaData[fieldName];
+                            }
+                        }
+                    });
+                    
+                    // Restaurer les sélections
+                    if (ndaData.selectedNDAType) {
+                        selectNDAType(ndaData.selectedNDAType);
+                    }
+                    if (ndaData.selectedDuration) {
+                        selectDuration(ndaData.selectedDuration);
+                    }
+                    
+                    console.log('✅ Données chargées avec succès');
+                }
+            } catch (error) {
+                console.error('Erreur lors du chargement:', error);
+            }
+        }
+
+        // Exporter les données
+        function exportData() {
+            try {
+                saveNDA();
+                
+                const exportData = {
+                    ...ndaData,
+                    exportDate: new Date().toISOString(),
+                    version: '1.0',
+                    documentType: 'Non-Disclosure Agreement'
+                };
+                
+                const dataStr = JSON.stringify(exportData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+                
+                const date = new Date().toISOString().split('T')[0];
+                const recipientName = ndaData['recipient-name'] || 'recipient';
+                const fileName = `nda_${recipientName}_${date}.json`.replace(/\s+/g, '_');
+                
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', fileName);
+                linkElement.click();
+                
+                showNotification('✔ Données exportées avec succès');
+            } catch (error) {
+                console.error('Erreur d\'export:', error);
+                showNotification('⚠️ Erreur lors de l\'export', true);
+            }
+        }
+
+        // Charger des données externes
+        function loadExternalData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        try {
+                            const data = JSON.parse(event.target.result);
+                            
+                            // Restaurer les données
+                            Object.keys(data).forEach(fieldName => {
+                                if (fieldName !== 'exportDate' && fieldName !== 'version' && fieldName !== 'documentType') {
+                                    const field = document.querySelector(`[data-field="${fieldName}"]`);
+                                    if (field) {
+                                        field.innerText = data[fieldName];
+                                    }
+                                }
+                            });
+                            
+                            // Restaurer les sélections
+                            if (data.selectedNDAType) {
+                                selectNDAType(data.selectedNDAType);
+                            }
+                            if (data.selectedDuration) {
+                                selectDuration(data.selectedDuration);
+                            }
+                            
+                            showNotification('✔ Données chargées avec succès');
+                            saveNDA();
+                        } catch (error) {
+                            console.error('Erreur lors du chargement:', error);
+                            showNotification('⚠️ Erreur lors du chargement du fichier', true);
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        // Exporter en PDF
+        function exportPDF() {
+            showNotification('📄 Préparation de l\'impression PDF...');
+            
+            // Masquer temporairement les éléments non imprimables
+            document.body.classList.add('print-preview');
+            
+            setTimeout(() => {
+                window.print();
+                document.body.classList.remove('print-preview');
+            }, 500);
+        }
+
+        // Réinitialiser le formulaire
+        function resetForm() {
+            if (confirm('Êtes-vous sûr de vouloir réinitialiser tous les champs?\n\nCette action est irréversible!')) {
+                document.querySelectorAll('[contenteditable="true"]').forEach(field => {
+                    const fieldName = field.getAttribute('data-field');
+                    
+                    // Garder les informations de Sylvain Leduc
+                    if (fieldName.startsWith('discloser-')) {
+                        return;
+                    }
+                    
+                    field.innerText = '[' + fieldName + ']';
+                });
+                
+                // Réinitialiser les sélections
+                selectNDAType('unilateral');
+                selectDuration('2');
+                
+                localStorage.removeItem('ndaData');
+                ndaData = {};
+                isDirty = false;
+                
+                showNotification('✔ Formulaire réinitialisé');
+            }
+        }
+
+        // Afficher une notification
+        function showNotification(message, isError = false) {
+            const indicator = document.getElementById('saveIndicator');
+            const messageEl = document.getElementById('saveMessage');
+            
+            messageEl.textContent = message;
+            indicator.classList.toggle('error', isError);
+            indicator.classList.add('show');
+            
+            setTimeout(() => {
+                indicator.classList.remove('show');
+                indicator.classList.remove('error');
+            }, 3000);
+        }
+
+        // Afficher/masquer le loading
+        function showLoading(show = true) {
+            const overlay = document.getElementById('loadingOverlay');
+            overlay.classList.toggle('show', show);
+        }
+
+        // Raccourcis clavier
+        document.addEventListener('keydown', function(e) {
+            // Ctrl+S pour sauvegarder
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveNDA();
+            }
+            
+            // Ctrl+P pour imprimer
+            if (e.ctrlKey && e.key === 'p') {
+                e.preventDefault();
+                exportPDF();
+            }
+            
+            // Ctrl+E pour exporter
+            if (e.ctrlKey && e.key === 'e') {
+                e.preventDefault();
+                exportData();
+            }
+        });
+    </script>
+</body>
+</html>
